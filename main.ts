@@ -1,3 +1,4 @@
+// parses 2 comma-separated numbers and returns an echo for confirmation.
 function parseInput (input2: string) {
     temp = input2.split(",")
     turnstrength = parseFloat(temp[0])
@@ -14,10 +15,13 @@ bluetooth.onBluetoothDisconnected(function () {
 })
 // Parse text input from serial connection over the Bluetooth radio.
 // 
-// Expected format is "<turning-strength>,<forward-backward>"
+// Expected input format is "<turning-strength>,<forward-backward>".
 bluetooth.onUartDataReceived(serial.delimiters(Delimiters.NewLine), function () {
     bluetooth.uartWriteLine(parseInput(bluetooth.uartReadUntil(serial.delimiters(Delimiters.NewLine))))
 })
+// Parse text input from serial connection over the USB wire. This feature is meant for debugging before using Bluetooth
+// 
+// Expected input format is "<turning-strength>,<forward-backward>".
 serial.onDataReceived(serial.delimiters(Delimiters.NewLine), function () {
     serial.writeLine("" + (parseInput(serial.readUntil(serial.delimiters(Delimiters.NewLine)))))
 })
@@ -32,7 +36,7 @@ forwardbackward = 0
 motobit.enable(MotorPower.On)
 bluetooth.startUartService()
 serial.redirectToUSB()
-serial.setBaudRate(BaudRate.BaudRate115200)
+serial.setBaudRate(BaudRate.BaudRate9600)
 basic.forever(function () {
     // If turning in place. Else going forward or backward while turning (AKA "veering")
     if (forwardbackward == 0) {
