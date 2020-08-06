@@ -1,0 +1,22 @@
+{
+    "name": "tank-drive moto-bit robot",
+    "description": "",
+    "dependencies": {
+        "core": "*",
+        "motobit": "github:sparkfun/pxt-moto-bit#v0.0.4",
+        "bluetooth": "*"
+    },
+    "files": [
+        "main.blocks",
+        "main.ts",
+        "README.md",
+        "main.py"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "supportedTargets": [
+        "microbit"
+    ],
+    "preferredEditor": "blocksprj"
+}
